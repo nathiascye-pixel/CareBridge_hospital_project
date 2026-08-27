@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Triage | CareBridge{% endblock %}
+{% block page_title %}Triage Assignment{% endblock %}
+
+{% block content %}
+<div class="content-grid">
+    <section class="glass-card form-card">
+        <div class="card-topline">
+            <span class="step-chip">STEP 03</span>
+            <span class="card-status">Clinical routing</span>
+        </div>
+
+        <div class="card-heading">
+            <h2>Assign Patient Location</h2>
+            <p>Only patients with a confirmed appointment can be selected.</p>
+        </div>
+
+        {% if error %}<div class="alert error"><b>!</b><span>{{ error }}</span></div>{% endif %}
+
+        {% if eligible_patients %}
+        <form method="post">
+            <div class="field">
+                <label for="patient_id">Patient</label>
+                <div class="input-shell">
+                    <span class="input-icon">ID</span>
+                    <select id="patient_id" name="patient_id" required>
+                        <option value="">Select appointed patient</option>
+                        {% for patient in eligible_patients %}
+                        <option value="{{ patient.patient_id }}">
+                            {{ patient.patient_id }} — {{ patient.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="severity">Severity Level</label>
+                <div class="input-shell">
+                    <span class="input-icon">1–10</span>
+                    <input id="severity" type="number" name="severity"
+                           min="1" max="10" placeholder="Enter severity" required>
+                </div>
+            </div>
+
+            <button class="primary-btn full" type="submit">
+                Assign Location <span>→</span>
+            </button>
+        </form>
+        {% else %}
+        <div class="empty-state premium-empty">
+            <div class="empty-icon">!</div>
+            <strong>No appointed patients</strong>
+            <p>A patient must register and book an appointment first.</p>
+        </div>
+        {% endif %}
+
+        {% if result %}
+        <div class="result-panel premium-result">
+            <div class="result-head">
+                <span>TRIAGE SUMMARY</span>
+                <b>{{ result.severity }}/10</b>
+            </div>
+            <div class="result-row-line"><span>Patient</span><strong>{{ result.patient_id }} — {{ result.patient_name }}</strong></div>
+            <div class="result-row-line"><span>Severity</span><strong>{{ result.severity }}/10</strong></div>
+            <div class="result-row-line total"><span>Assigned Location</span><strong>{{ result.assigned_room }}</strong></div>
+        </div>
+        {% endif %}
+    </section>
+
+    <aside class="glass-card side-card">
+        <div class="side-copy">
+            <span class="section-kicker">SEVERITY GUIDE</span>
+            <h3>Patient routing</h3>
+            <p>Severity determines where the patient will be assigned.</p>
+        </div>
+
+        <div class="severity-modern">
+            <div class="severity-card low">
+                <b>1–4</b>
+                <div><strong>Waiting Room</strong><span>Lower severity</span></div>
+            </div>
+            <div class="severity-card mid">
+                <b>5–7</b>
+                <div><strong>Room 1</strong><span>Moderate severity</span></div>
+            </div>
+            <div class="severity-card high">
+                <b>8–10</b>
+                <div><strong>Room 2</strong><span>Higher severity</span></div>
+            </div>
+        </div>
+    </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CareBridge{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <div class="shell">
+        <aside class="sidebar">
+            <a class="brand" href="{{ url_for('home') }}">
+                <div class="brand-mark">+</div>
+                <div>
+                    <strong>CareBridge</strong>
+                    <span>Hospital OS</span>
+                </div>
+            </a>
+
+            <div class="nav-label">WORKSPACE</div>
+
+            <nav class="nav">
+                <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('register') }}" class="{% if request.endpoint == 'register' %}active{% endif %}">
+                    <span class="nav-icon">＋</span>
+                    <span>Register</span>
+                </a>
+                <a href="{{ url_for('appointment') }}" class="{% if request.endpoint == 'appointment' %}active{% endif %}">
+                    <span class="nav-icon">◫</span>
+                    <span>Appointment</span>
+                </a>
+                <a href="{{ url_for('triage') }}" class="{% if request.endpoint == 'triage' %}active{% endif %}">
+                    <span class="nav-icon">♡</span>
+                    <span>Triage</span>
+                </a>
+                <a href="{{ url_for('bill') }}" class="{% if request.endpoint == 'bill' %}active{% endif %}">
+                    <span class="nav-icon">$</span>
+                    <span>Billing</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-spacer"></div>
+
+            <div class="system-card">
+                <div class="system-icon">●</div>
+                <div>
+                    <strong>System online</strong>
+                    <span>Flask · Local server</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <span>CareBridge Web Migration</span>
+                <small>Programming 1 · Part B</small>
+            </div>
+        </aside>
+
+        <div class="main-area">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">CAREBRIDGE HOSPITAL</p>
+                    <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+                </div>
+
+                <div class="top-actions">
+                    <div class="live-pill"><span></span> Live</div>
+                    <div class="avatar">CB</div>
+                </div>
+            </header>
+
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
