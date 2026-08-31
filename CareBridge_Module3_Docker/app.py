@@ -148,6 +148,8 @@ def register():
     )
 
 
+
+
 @app.route("/appointment", methods=["GET", "POST"])
 def appointment():
     data = load_data()
@@ -156,14 +158,12 @@ def appointment():
     booking = None
 
     today = datetime.now().date()
-    cutoff = today + timedelta(days=7)
-    time_slots = build_time_slots()
+    minimum_date = today + timedelta(days=8)
 
     if request.method == "POST":
         patient_id = request.form.get("patient_id", "").strip()
         department = request.form.get("department", "").strip()
         appointment_date_text = request.form.get("appointment_date", "").strip()
-        appointment_time = request.form.get("appointment_time", "").strip()
 
         available_ids = {
             patient["patient_id"]
@@ -174,59 +174,32 @@ def appointment():
             error = "Please choose a registered patient who does not already have an appointment."
         elif department not in ["GP", "Specialist"]:
             error = "Please choose either GP or Specialist."
-        elif appointment_time not in time_slots:
-            error = "Please choose one of the available 15-minute appointment slots."
         else:
             try:
                 appointment_date = datetime.strptime(
                     appointment_date_text, "%Y-%m-%d"
                 ).date()
 
-                if appointment_date < today or appointment_date > cutoff:
-                    error = "Appointment date must be from today up to 7 days ahead."
+                if appointment_date <= today + timedelta(days=7):
+                    error = "Appointment date must be more than 7 days from the current date."
                 else:
-                    clash = any(
-                        item["department"] == department
-                        and item["date"] == appointment_date_text
-                        and item["time"] == appointment_time
-                        for item in data["appointments"]
-                    )
+                    patient = get_patient(data["patients"], patient_id)
 
-                    if clash:
-                        error = (
-                            f"{appointment_time} on {appointment_date_text} is already booked. "
-                            "Please choose another 15-minute slot."
-                        )
-                    else:
-                        patient = get_patient(data["patients"], patient_id)
+                    booking = {
+                        "patient_id": patient_id,
+                        "patient_name": patient["name"],
+                        "department": department,
+                        "date": appointment_date_text
+                    }
 
-                        booking = {
-                            "patient_id": patient_id,
-                            "patient_name": patient["name"],
-                            "department": department,
-                            "date": appointment_date_text,
-                            "time": appointment_time
-                        }
+                    data["appointments"].append(booking)
+                    save_data(data)
+                    message = f"Appointment confirmed for {patient_id} - {patient['name']}."
 
-                        data["appointments"].append(booking)
-                        save_data(data)
-                        message = (
-                            f"Appointment confirmed for {patient_id} - {patient['name']}."
-                        )
             except ValueError:
                 error = "Please enter a valid appointment date."
 
     available_patients = patients_without_appointments(data)
-
-    booked_slots = sorted(
-        data["appointments"],
-        key=lambda item: (item["date"], item["time"])
-    )
-
-    booked_by_department_date = {}
-    for item in data["appointments"]:
-        key = f'{item["department"]}|{item["date"]}'
-        booked_by_department_date.setdefault(key, []).append(item["time"])
 
     return render_template(
         "appointment.html",
@@ -234,11 +207,8 @@ def appointment():
         error=error,
         booking=booking,
         available_patients=available_patients,
-        booked_slots=booked_slots,
-        booked_by_department_date=booked_by_department_date,
-        time_slots=time_slots,
         today=today.isoformat(),
-        cutoff=cutoff.isoformat()
+        minimum_date=minimum_date.isoformat()
     )
 
 

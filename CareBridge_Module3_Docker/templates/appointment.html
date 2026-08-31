@@ -1,22 +1,27 @@
 {% extends "base.html" %}
-{% block title %}Appointments | CareBridge{% endblock %}
-{% block page_title %}Appointment Booking{% endblock %}
+{% block title %}Appointment | CareBridge{% endblock %}
+{% block page_title %}Appointment{% endblock %}
 
 {% block content %}
-<div class="content-grid appointment-grid">
+<div class="content-grid">
     <section class="glass-card form-card">
         <div class="card-topline">
-            <span class="step-chip">STEP 02</span>
-            <span class="card-status">15-minute scheduling</span>
+            <span class="step-chip">STEP 2</span>
+            <span class="card-status">Patient appointment</span>
         </div>
 
         <div class="card-heading">
-            <h2>Book an Appointment</h2>
-            <p>Choose a registered patient, department, date and one available 15-minute time slot.</p>
+            <h2>Book Appointment</h2>
+            <p>Select a registered patient, department and appointment date.</p>
         </div>
 
-        {% if error %}<div class="alert error"><b>!</b><span>{{ error }}</span></div>{% endif %}
-        {% if message %}<div class="alert success"><b>✓</b><span>{{ message }}</span></div>{% endif %}
+        {% if error %}
+        <div class="alert error"><b>!</b><span>{{ error }}</span></div>
+        {% endif %}
+
+        {% if message %}
+        <div class="alert success"><b>✓</b><span>{{ message }}</span></div>
+        {% endif %}
 
         {% if available_patients %}
         <form method="post">
@@ -28,7 +33,7 @@
                         <option value="">Select registered patient</option>
                         {% for patient in available_patients %}
                         <option value="{{ patient.patient_id }}">
-                            {{ patient.patient_id }} — {{ patient.name }}
+                            {{ patient.patient_id }} - {{ patient.name }}
                         </option>
                         {% endfor %}
                     </select>
@@ -51,133 +56,79 @@
                 <label for="appointment_date">Appointment Date</label>
                 <div class="input-shell">
                     <span class="input-icon">CAL</span>
-                    <input id="appointment_date" type="date" name="appointment_date"
-                           min="{{ today }}" max="{{ cutoff }}" required>
+                    <input
+                        id="appointment_date"
+                        type="date"
+                        name="appointment_date"
+                        min="{{ minimum_date }}"
+                        required
+                    >
                 </div>
-            </div>
-
-            <div class="field">
-                <label for="appointment_time">15-Minute Time Slot</label>
-                <div class="input-shell">
-                    <span class="input-icon">15</span>
-                    <select id="appointment_time" name="appointment_time" required>
-                        <option value="">Choose a date first</option>
-                        {% for slot in time_slots %}
-                        <option value="{{ slot }}">{{ slot }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <small>Slots run every 15 minutes. Booked times are automatically disabled.</small>
+                <small>Date must be more than 7 days from the current date.</small>
             </div>
 
             <button class="primary-btn full" type="submit">
-                Confirm Appointment <span>→</span>
+                Confirm Appointment
             </button>
         </form>
         {% else %}
-        <div class="empty-state premium-empty">
+        <div class="premium-empty">
             <div class="empty-icon">✓</div>
-            <strong>No patients waiting for booking</strong>
-            <p>Register another patient to create a new appointment.</p>
-            <a href="{{ url_for('register') }}">Register Patient →</a>
+            <strong>No patients waiting for appointment</strong>
+            <p>Register a new patient first.</p>
+            <a href="{{ url_for('register') }}">Register Patient</a>
         </div>
         {% endif %}
 
         {% if booking %}
-        <div class="result-panel premium-result">
+        <div class="result-panel">
             <div class="result-head">
                 <span>APPOINTMENT CONFIRMED</span>
                 <b>✓</b>
             </div>
-            <div class="result-row-line"><span>Patient</span><strong>{{ booking.patient_id }} — {{ booking.patient_name }}</strong></div>
-            <div class="result-row-line"><span>Department</span><strong>{{ booking.department }}</strong></div>
-            <div class="result-row-line"><span>Date</span><strong>{{ booking.date }}</strong></div>
-            <div class="result-row-line total"><span>Time</span><strong>{{ booking.time }}</strong></div>
+
+            <div class="result-row-line">
+                <span>Patient</span>
+                <strong>{{ booking.patient_id }} - {{ booking.patient_name }}</strong>
+            </div>
+
+            <div class="result-row-line">
+                <span>Department</span>
+                <strong>{{ booking.department }}</strong>
+            </div>
+
+            <div class="result-row-line total">
+                <span>Date</span>
+                <strong>{{ booking.date }}</strong>
+            </div>
         </div>
         {% endif %}
     </section>
 
-    <aside class="glass-card side-card schedule-card">
+    <aside class="glass-card side-card">
         <div class="side-copy">
-            <span class="section-kicker">LIVE SCHEDULE</span>
-            <h3>Booked time slots</h3>
-            <p>Availability is separate for GP and Specialist. Only the same department + date + time is blocked.</p>
+            <span class="section-kicker">APPOINTMENT RULES</span>
+            <h3>Choose a department and date</h3>
+            <p>The appointment date must be more than 7 days from the current date.</p>
         </div>
 
-        {% if booked_slots %}
-        <div class="slot-list modern-slots">
-            {% for slot in booked_slots %}
-            <div class="slot-row">
-                <div class="slot-time">{{ slot.time }}</div>
-                <div class="slot-info">
-                    <strong>{{ slot.patient_id }} · {{ slot.patient_name }}</strong>
-                    <span>{{ slot.date }} · {{ slot.department }}</span>
+        <div class="severity-modern">
+            <div class="severity-card low">
+                <b>GP</b>
+                <div>
+                    <strong>General Practitioner</strong>
+                    <span>General medical consultation</span>
                 </div>
-                <div class="slot-badge">BOOKED</div>
             </div>
-            {% endfor %}
+
+            <div class="severity-card mid">
+                <b>SP</b>
+                <div>
+                    <strong>Specialist</strong>
+                    <span>Specialist medical consultation</span>
+                </div>
+            </div>
         </div>
-        {% else %}
-        <div class="small-empty">
-            <div class="empty-calendar">15</div>
-            <span>No appointment slots booked yet.</span>
-        </div>
-        {% endif %}
     </aside>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-const bookedByDepartmentDate = {{ booked_by_department_date | tojson }};
-const allSlots = {{ time_slots | tojson }};
-
-const dateInput = document.getElementById("appointment_date");
-const departmentSelect = document.getElementById("department");
-const timeSelect = document.getElementById("appointment_time");
-
-function refreshTimeSlots() {
-    if (!dateInput || !timeSelect) return;
-
-    const selectedDate = dateInput.value;
-    const selectedDepartment = departmentSelect ? departmentSelect.value : "";
-    const key = selectedDepartment + "|" + selectedDate;
-    const booked = bookedByDepartmentDate[key] || [];
-
-    timeSelect.innerHTML = "";
-
-    const first = document.createElement("option");
-    first.value = "";
-    if (!selectedDepartment) {
-        first.textContent = "Choose a department first";
-    } else if (!selectedDate) {
-        first.textContent = "Choose a date first";
-    } else {
-        first.textContent = "Select available 15-minute slot";
-    }
-    timeSelect.appendChild(first);
-
-    allSlots.forEach(slot => {
-        const option = document.createElement("option");
-        option.value = slot;
-
-        if (booked.includes(slot)) {
-            option.textContent = slot + " — BOOKED";
-            option.disabled = true;
-        } else {
-            option.textContent = slot + " — Available";
-        }
-
-        timeSelect.appendChild(option);
-    });
-}
-
-if (dateInput) {
-    dateInput.addEventListener("change", refreshTimeSlots);
-}
-if (departmentSelect) {
-    departmentSelect.addEventListener("change", refreshTimeSlots);
-}
-refreshTimeSlots();
-</script>
 {% endblock %}
