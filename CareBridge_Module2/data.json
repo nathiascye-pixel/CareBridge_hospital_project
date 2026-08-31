@@ -1,0 +1,35 @@
+{
+    "patients": [
+        {
+            "name": "wfhiwb",
+            "patient_id": "P934",
+            "age": 123
+        }
+    ],
+    "appointments": [
+        {
+            "patient_id": "P934",
+            "patient_name": "wfhiwb",
+            "department": "Specialist",
+            "date": "2026-09-16"
+        }
+    ],
+    "triage_records": [
+        {
+            "patient_id": "P934",
+            "patient_name": "wfhiwb",
+            "severity": 8,
+            "assigned_room": "Room 2"
+        }
+    ],
+    "billing_records": [
+        {
+            "patient_id": "P934",
+            "patient_name": "wfhiwb",
+            "patient_type": "Subsidised",
+            "number_of_tests": 1234,
+            "subtotal": 12440,
+            "total": 8708.0
+        }
+    ]
+}

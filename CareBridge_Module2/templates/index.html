@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | CareBridge{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="welcome-card">
+    <div>
+        <span class="label">CAREBRIDGE WEB SYSTEM</span>
+        <h2>Hospital Patient Management</h2>
+        <p>Register patients, assign a department, calculate patient bills and assign triage rooms.</p>
+    </div>
+    <a class="primary-btn" href="{{ url_for('register') }}">Register Patient</a>
+</section>
+
+<section class="process-card">
+    <h3>Patient Process</h3>
+    <div class="process-grid">
+        <div class="process-step">
+            <b>1</b>
+            <div>
+                <strong>Register</strong>
+                <span>Enter patient details</span>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <b>2</b>
+            <div>
+                <strong>Appointment</strong>
+                <span>Choose department and date</span>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <b>3</b>
+            <div>
+                <strong>Billing</strong>
+                <span>Calculate charges</span>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <b>4</b>
+            <div>
+                <strong>Triage</strong>
+                <span>Assign patient location</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat-card">
+        <span>Total Patients</span>
+        <strong>{{ patient_count }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Appointments</span>
+        <strong>{{ appointment_count }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Awaiting Booking</span>
+        <strong>{{ waiting_count }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Ready for Care</span>
+        <strong>{{ ready_count }}</strong>
+    </div>
+</section>
+
+<section class="services-section">
+    <h3>Hospital Services</h3>
+
+    <div class="service-grid">
+        <a class="service-card" href="{{ url_for('register') }}">
+            <div class="service-icon">ID</div>
+            <div>
+                <strong>Register Patient</strong>
+                <p>Add a patient using a unique P000-format ID.</p>
+            </div>
+        </a>
+
+        <a class="service-card" href="{{ url_for('appointment') }}">
+            <div class="service-icon">AP</div>
+            <div>
+                <strong>Appointment</strong>
+                <p>Select a patient, department and a date more than 7 days ahead.</p>
+            </div>
+        </a>
+
+        <a class="service-card" href="{{ url_for('bill') }}">
+            <div class="service-icon">$</div>
+            <div>
+                <strong>Billing</strong>
+                <p>Calculate the patient's bill.</p>
+            </div>
+        </a>
+
+        <a class="service-card" href="{{ url_for('triage') }}">
+            <div class="service-icon">TRI</div>
+            <div>
+                <strong>Triage</strong>
+                <p>Assign a location based on severity level.</p>
+            </div>
+        </a>
+    </div>
+</section>
+{% endblock %}

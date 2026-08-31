@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Appointment | CareBridge{% endblock %}
+{% block page_title %}Appointment{% endblock %}
+
+{% block content %}
+<div class="content-grid">
+    <section class="glass-card form-card">
+        <div class="card-topline">
+            <span class="step-chip">STEP 2</span>
+            <span class="card-status">Patient appointment</span>
+        </div>
+
+        <div class="card-heading">
+            <h2>Book Appointment</h2>
+            <p>Select a registered patient, department and appointment date.</p>
+        </div>
+
+        {% if error %}
+        <div class="alert error"><b>!</b><span>{{ error }}</span></div>
+        {% endif %}
+
+        {% if message %}
+        <div class="alert success"><b>✓</b><span>{{ message }}</span></div>
+        {% endif %}
+
+        {% if available_patients %}
+        <form method="post">
+            <div class="field">
+                <label for="patient_id">Patient</label>
+                <div class="input-shell">
+                    <span class="input-icon">ID</span>
+                    <select id="patient_id" name="patient_id" required>
+                        <option value="">Select registered patient</option>
+                        {% for patient in available_patients %}
+                        <option value="{{ patient.patient_id }}">
+                            {{ patient.patient_id }} - {{ patient.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="department">Department</label>
+                <div class="input-shell">
+                    <span class="input-icon">+</span>
+                    <select id="department" name="department" required>
+                        <option value="">Select department</option>
+                        <option value="GP">GP</option>
+                        <option value="Specialist">Specialist</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="appointment_date">Appointment Date</label>
+                <div class="input-shell">
+                    <span class="input-icon">CAL</span>
+                    <input
+                        id="appointment_date"
+                        type="date"
+                        name="appointment_date"
+                        min="{{ minimum_date }}"
+                        required
+                    >
+                </div>
+                <small>Date must be more than 7 days from the current date.</small>
+            </div>
+
+            <button class="primary-btn full" type="submit">
+                Confirm Appointment
+            </button>
+        </form>
+        {% else %}
+        <div class="premium-empty">
+            <div class="empty-icon">✓</div>
+            <strong>No patients waiting for appointment</strong>
+            <p>Register a new patient first.</p>
+            <a href="{{ url_for('register') }}">Register Patient</a>
+        </div>
+        {% endif %}
+
+        {% if booking %}
+        <div class="result-panel">
+            <div class="result-head">
+                <span>APPOINTMENT CONFIRMED</span>
+                <b>✓</b>
+            </div>
+
+            <div class="result-row-line">
+                <span>Patient</span>
+                <strong>{{ booking.patient_id }} - {{ booking.patient_name }}</strong>
+            </div>
+
+            <div class="result-row-line">
+                <span>Department</span>
+                <strong>{{ booking.department }}</strong>
+            </div>
+
+            <div class="result-row-line total">
+                <span>Date</span>
+                <strong>{{ booking.date }}</strong>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+    <aside class="glass-card side-card">
+        <div class="side-copy">
+            <span class="section-kicker">APPOINTMENT RULES</span>
+            <h3>Choose a department and date</h3>
+            <p>The appointment date must be more than 7 days from the current date.</p>
+        </div>
+
+        <div class="severity-modern">
+            <div class="severity-card low">
+                <b>GP</b>
+                <div>
+                    <strong>General Practitioner</strong>
+                    <span>General medical consultation</span>
+                </div>
+            </div>
+
+            <div class="severity-card mid">
+                <b>SP</b>
+                <div>
+                    <strong>Specialist</strong>
+                    <span>Specialist medical consultation</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+{% endblock %}

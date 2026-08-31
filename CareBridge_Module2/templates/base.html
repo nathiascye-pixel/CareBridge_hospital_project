@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CareBridge{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="{{ url_for('home') }}">
+                <div class="brand-mark">+</div>
+                <div>
+                    <strong>CareBridge Hospital</strong>
+                    <span>Patient Management System</span>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">Dashboard</a>
+                <a href="{{ url_for('register') }}" class="{% if request.endpoint == 'register' %}active{% endif %}">Register</a>
+                <a href="{{ url_for('appointment') }}" class="{% if request.endpoint == 'appointment' %}active{% endif %}">Appointment</a>
+                <a href="{{ url_for('bill') }}" class="{% if request.endpoint == 'bill' %}active{% endif %}">Billing</a>
+                <a href="{{ url_for('triage') }}" class="{% if request.endpoint == 'triage' %}active{% endif %}">Triage</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-heading">
+        <div>
+            <p>CAREBRIDGE HOSPITAL</p>
+            <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+        </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        Programming 1 - Project Part B · CareBridge Hospital
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
