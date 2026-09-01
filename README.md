@@ -33,4 +33,3 @@ AI assistance supported areas including:
 | **Public Access** | ngrok |
 | **Version Control** | Git |
 | **Repository** | GitHub |
-| **Application Port** | `5000` |
