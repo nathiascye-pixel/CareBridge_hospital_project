@@ -12,6 +12,7 @@ AI assistance supported areas including:
 - Python and Flask development
 - HTML and CSS
 - Docker
+- Docker Compose
 - ngrok configuration
 - Git and GitHub troubleshooting
 - Input validation
@@ -26,8 +27,7 @@ AI assistance supported areas including:
 | **Project** | CareBridge Hospital |
 | **Project Type** | Hospital Management Web Application |
 | **Backend** | Python / Flask |
-| **Frontend** | HTML / CSS / JavaScript |
-| **Database** | SQLite |
+| **Frontend** | HTML / CSS / |
 | **Containerisation** | Docker |
 | **Orchestration** | Docker Compose |
 | **Public Access** | ngrok |
