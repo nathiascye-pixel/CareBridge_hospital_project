@@ -26,8 +26,9 @@ If today is 31 August:
 - Billing and Triage only show patients who have an appointment
 
 ## Run
-py -m pip install -r requirements.txt
-py app.py
+docker run --name carebridge-v9-container -p 5000:5000 carebridge-v9
+
+docker start -a carebridge-v9-container
 
 Open:
 http://127.0.0.1:5000
