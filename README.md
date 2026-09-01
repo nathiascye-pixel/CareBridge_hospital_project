@@ -19,4 +19,18 @@ AI assistance supported areas including:
 - Documentation
 - Project presentation preparation
 
-AI was used to support the development and learning process. The application was implemented, tested, and reviewed as part of the project.
+# 📊 Project Information
+
+| Part | Details |
+|----------|---------|
+| **Project** | CareBridge Hospital |
+| **Project Type** | Hospital Management Web Application |
+| **Backend** | Python / Flask |
+| **Frontend** | HTML / CSS / JavaScript |
+| **Database** | SQLite |
+| **Containerisation** | Docker |
+| **Orchestration** | Docker Compose |
+| **Public Access** | ngrok |
+| **Version Control** | Git |
+| **Repository** | GitHub |
+| **Application Port** | `5000` |
