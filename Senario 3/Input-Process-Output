@@ -1,1 +1,7 @@
+## 🔄 Input – Process – Output
 
+| **Category** | **Details** |
+|---|---|
+| **Input** | Severity Of Condition |
+| **Process** | Check if input is a whole number from 1–10.<br><br>Classify severity into **Waiting Room, Room 1, or Room 2**. |
+| **Output** | Display Error Message.<br><br>Display Triage Summary (**Severity Level & Assigned Room**). |
