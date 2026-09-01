@@ -11,9 +11,7 @@ AI assistance supported areas including:
 
 - Python and Flask development
 - HTML and CSS
-- JavaScript
 - Docker
-- Docker Compose
 - ngrok configuration
 - Git and GitHub troubleshooting
 - Input validation
