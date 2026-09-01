@@ -31,3 +31,11 @@ py app.py
 
 Open:
 http://127.0.0.1:5000
+
+## Docker Mechanics
+Docker file, Contains instructions on how to set up and run the application.
+Docker Image, A packaged version of the application containing its code, dependencies, and Python environment.
+Docker Container, A running instance of the Docker image where the application executes.
+Isolated Environment, Keeps the application and its dependencies separate from the host computer, improving consistency.
+Port Mapping, Connects the container to the host machine, allowing our CareBridge website to be accessed through localhost:5000.
+
