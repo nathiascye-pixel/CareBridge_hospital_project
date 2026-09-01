@@ -27,7 +27,7 @@ AI assistance supported areas including:
 | **Project** | CareBridge Hospital |
 | **Project Type** | Hospital Management Web Application |
 | **Backend** | Python / Flask |
-| **Frontend** | HTML / CSS / |
+| **Frontend** | HTML / CSS |
 | **Containerisation** | Docker |
 | **Orchestration** | Docker Compose |
 | **Public Access** | ngrok |
