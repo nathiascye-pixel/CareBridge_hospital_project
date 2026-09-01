@@ -1,0 +1,7 @@
+AI helped me convert my flowchart and pseudocode into Python code. I also used it to check the input validation, calculations and fix any errors in the code. 
+
+Prompt 1: Turn this flowchart into pseudocode
+Prompt 2: Help me turn this pseudocode into Python
+Prompt 3: Check and fix my Python code if there are any errors
+Prompt 4: Make sure the patient type only accepts Subsidised or Private
+Prompt 5: Make sure the number of lab tests only accepts a whole number
