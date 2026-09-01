@@ -1,0 +1,27 @@
+BEGIN AssignTriageRoom
+	validInput = FALSE
+ 
+	WHILE validInput IS FALSE DO
+    	DISPLAY "Enter severity of condition (1 to 10):"
+    	INPUT severityInput
+ 
+    	IF severityInput IS A WHOLE NUMBER AND severityInput >= 1 AND severityInput <= 10 THEN
+        	validInput = TRUE
+        	severity = CONVERT_TO_INTEGER(severityInput)
+    	ELSE
+        	DISPLAY "Error: Invalid input. Please enter a whole number between 1 and 10."
+    	ENDIF
+	ENDWHILE
+ 
+	IF severity >= 1 AND severity <= 4 THEN
+    	assignedRoom = "Waiting Room"
+	ELSE IF severity >= 5 AND severity <= 7 THEN
+    	assignedRoom = "Room 1"
+	ELSE IF severity >= 8 AND severity <= 10 THEN
+    	assignedRoom = "Room 2"
+	ENDIF
+ 
+	DISPLAY "--- Triage Summary ---"
+	DISPLAY "Severity Level: " + severity
+	DISPLAY "Assigned Location: " + assigned Room
+END 
