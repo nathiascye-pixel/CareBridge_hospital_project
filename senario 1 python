@@ -1,0 +1,51 @@
+registered_ids = []
+
+def register_patient():
+
+    while True:
+
+        patient_id = input("Enter Patient ID (P000): ").strip().upper()
+        name = input("Enter patient's name: ").strip()
+
+        try:
+            age = int(input("Enter patient's age: "))
+        except ValueError:
+            print("Invalid age. Try again.")
+            continue
+
+        if (
+            len(patient_id) != 4
+            or not patient_id.startswith("P")
+            or not patient_id[1:].isdigit()
+        ):
+            print("Invalid Patient ID. Use P000 format.")
+            continue
+
+        if patient_id in registered_ids:
+            print("Patient ID already registered.")
+            continue
+
+        if name == "":
+            print("Invalid name.")
+            continue
+
+        if age < 1 or age > 150:
+            print("Age must be between 1 and 150.")
+            continue
+
+        print("Please confirm patient information")
+        print("Patient ID:", patient_id)
+        print("Name:", name)
+        print("Age:", age)
+
+        confirm = input("Confirm information? (yes/no): ").strip().lower()
+
+        if confirm == "yes":
+            registered_ids.append(patient_id)
+            print("Patient registered successfully")
+            break
+        else:
+            print("Registration cancelled")
+
+
+register_patient()
