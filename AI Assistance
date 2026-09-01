@@ -1,0 +1,22 @@
+HOW AI ASSISTED OUR PROJECT
+Git & GitHub: AI helped us understand commands such as git add, commit, pull, rebase, and push, and helped troubleshoot Git errors when uploading our work.
+Web Redesign: AI helped convert the original Python functions into a Flask web application and connect Register Patient, Appointment, Billing and Triage.
+Input Validation: AI helped improve rules such as the P000 Patient ID format, age limit, department selection and appointment-date validation.
+Docker: AI helped explain Dockerfiles, images, containers, isolated environments and how the CareBridge application can be packaged and run consistently.
+ngrok: If your team used AI for this part, add: “AI helped us understand how ngrok exposes a locally running website through a temporary public URL.”
+
+CHALLENGES & HOW AI HELPED
+GitHub push and repository errors → AI guided us through the correct Git commands.
+Flask/package errors → AI helped identify missing packages and incorrect folder paths.
+Separate Python functions → AI helped integrate them into one connected system.
+Changing project requirements → AI helped update the pseudocode, Python code and web validation.
+Docker concepts were unfamiliar → AI helped explain the process in simpler terms.
+Deployment/testing issues → AI helped us understand what to check and how the tools connect.
+
+KEY TAKEAWAYS
+Learned how Git and GitHub support team collaboration.
+Learned how HTML, CSS, Flask and Python work together in a web application.
+Learned the purpose of Docker images and containers.
+Learned how local applications can be shared using tools such as ngrok.
+Improved our ability to troubleshoot technical problems.
+Learned that AI can speed up development, but the output still needs to be tested and checked against the project requirements.
