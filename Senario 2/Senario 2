@@ -1,1 +1,28 @@
+Booking appointment Pseudocode
+START BookAppointment
 
+    // 1. Initialize System Date
+    GET Current_date
+
+    // 2. Department Input Loop
+    DISPLAY "Enter department (GP or Specialist):"
+    INPUT Department_name
+
+    WHILE Department_name NOT IN ("GP", "Specialist") THEN
+        DISPLAY "Invalid Department staff please try again"
+        DISPLAY "Enter department (GP or Specialist):"
+        INPUT Department_name
+    ENDWHILE
+
+    // 3. Appointment Date Input Loop
+    DISPLAY "Enter preferred appointment date:"
+    INPUT Appointment_date
+
+    WHILE NOT (Appointment_date IS Valid Date AND Appointment_date > (Current_date + 7)) THEN
+        DISPLAY "Invalid Date please try again"
+        DISPLAY "Enter preferred appointment date:"
+        INPUT Appointment_date
+    ENDWHILE
+
+    // 4. Booking Confirmation
+    DISPLAY "Booking is confirmed"
